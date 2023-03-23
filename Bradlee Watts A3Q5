@@ -1,0 +1,298 @@
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+  rectMode(CENTER);
+  x = 200;
+  y = 315;
+
+  dropX = random(-125, 125);
+  dropY = -210;
+  dropFalling = false;
+  caughtDrop = false;
+  splatX = 0;
+  splatY = 0;
+}
+
+function draw() {
+  background("skyblue");
+  drawRoad();
+  if (dropFalling == true) dropY++;
+  if (caughtDrop == true) {
+    animateTruck();
+  } else {
+    drawFireTruck();
+  }
+
+  if (mouseIsPressed == true) {
+    dropFalling = true;
+  }
+  if (dropFalling == true) {
+    if (dropY <= 165) {
+      if (caughtDrop == false) drawWaterDrop();
+
+      if (dropY == 60 && abs(mouseX - 200 - dropX) < 50) {
+        caughtDrop = true;
+      }
+    } else {
+      if (caughtDrop == false) drawSplat();
+      dropFalling = false;
+      caughtDrop = false;
+      dropX = random(-125, 125);
+      dropY = -210;
+    }
+    print(dropY);
+  }
+}
+
+function drawWaterDrop() {
+  push();
+  translate(dropX, dropY);
+  fill("blue");
+  noStroke();
+  ellipse(200, 200, 15, 15);
+  triangle(193, 197, 200, 185, 207, 197);
+  pop();
+}
+
+function drawSplat() {
+  push();
+  translate(dropX, dropY);
+  fill("white");
+  noStroke();
+  ellipse(200, 200, 30, 8);
+  pop();
+}
+
+function drawRoad() {
+  push();
+  fill("rgb(77,74,74)");
+  noStroke();
+  rect(200, 380, 400, 50);
+  pop();
+}
+
+function drawFireTruck() {
+  //startpush
+  push();
+
+  translate(mouseX, y);
+
+  //mirror holders
+  noFill();
+  stroke("black");
+  strokeWeight(3);
+  rect(52.5, -19, 15, 45, 3);
+  rect(-52.5, -19, 15, 45, 3);
+
+  //mirrors
+  stroke("black");
+  strokeWeight(3);
+  fill("silver");
+  rect(-60, -25, 10, 25, 3);
+  rect(-60, -5, 10, 10, 3);
+  rect(60, -25, 10, 25, 3);
+  rect(60, -5, 10, 10, 3);
+
+  //tires
+  fill("black");
+  rect(43, 45, 15, 25, 3);
+  rect(-43, 45, 15, 25, 3);
+
+  //ladder
+  noStroke();
+  fill("white");
+  rect(-8, -56, 2, 13, 2);
+  rect(18, -56, 2, 13, 2);
+  rect(5, -60, 24, 2);
+  rect(5, -56, 24, 2);
+  rect(5, -52, 24, 2);
+
+  //body
+  noStroke();
+  fill("white");
+  square(0, 0, 97);
+  fill("red");
+  rect(0, 25, 97, 47);
+  stroke("black");
+  strokeWeight(3);
+  //outline
+  noFill();
+  square(0, 0, 100, 5);
+
+  //windshield
+  fill("skyblue");
+  rect(0, -24, 100, 30, 3);
+
+  //windrgb(0,0,0)glare
+  noStroke();
+  fill("white");
+  rect(-30, -32.5, 20, 2, 1);
+  rect(-35, -27.5, 20, 2, 1);
+
+  //grill
+  stroke("black");
+  strokeWeight(3);
+  fill("grey");
+  rect(0, 25, 30, 30, 3);
+  rect(0, 30, 30, 5, 3);
+  rect(0, 25, 30, 5, 3);
+  rect(0, 20, 30, 5, 3);
+
+  //lights
+  noStroke();
+  fill("orange");
+  rect(-32.5, 20, 17, 7);
+  rect(32.5, 20, 17, 7);
+  fill("red");
+  rect(-28, 20, 8.5, 7);
+  rect(28, 20, 8.5, 7);
+  fill("white");
+  rect(-32.5, 35, 20, 10, 3);
+  rect(32.5, 35, 20, 10, 3);
+
+  //light outlines
+  stroke("black");
+  strokeWeight(3);
+  noFill();
+  rect(-32.5, 20, 20, 10, 1);
+  rect(32.5, 20, 20, 10, 1);
+  rect(-32.5, 35, 20, 10, 1);
+  rect(32.5, 35, 20, 10, 1);
+  rect(-32.5, 35, 0, 10);
+  rect(32.5, 35, 0, 10);
+
+  //windshield wipers
+  noStroke();
+  fill("grey");
+  rect(-25, -11, 30, 2);
+  rect(25, -11, 30, 2);
+  rect(-30, -9, 2, 2);
+  rect(20, -9, 2, 2);
+
+  //emergency lights
+  stroke("black");
+  strokeWeight(3);
+  fill("red");
+  rect(-30, -55, 10, 10, 3);
+  fill("yellow");
+  rect(-20, -55, 10, 10, 3);
+  fill("blue");
+  rect(30, -55, 10, 10, 3);
+
+  //endpop
+  pop();
+}
+
+function animateTruck() {
+  push();
+
+  translate(mouseX, y);
+
+  //mirror holders
+  noFill();
+  stroke("black");
+  strokeWeight(3);
+  rect(52.5, -19, 15, 45, 3);
+  rect(-52.5, -19, 15, 45, 3);
+
+  //mirrors
+  stroke("black");
+  strokeWeight(3);
+  fill("silver");
+  rect(-60, -25, 10, 25, 3);
+  rect(-60, -5, 10, 10, 3);
+  rect(60, -25, 10, 25, 3);
+  rect(60, -5, 10, 10, 3);
+
+  //tires
+  fill("black");
+  rect(43, 45, 15, 25, 3);
+  rect(-43, 45, 15, 25, 3);
+
+  //ladder
+  noStroke();
+  fill("white");
+  rect(-8, -65, 2, 25, 2);
+  rect(18, -65, 2, 25, 2);
+  rect(5, -72, 24, 2);
+  rect(5, -68, 24, 2);
+  rect(5, -64, 24, 2);
+  rect(5, -60, 24, 2);
+  rect(5, -56, 24, 2);
+  rect(5, -52, 24, 2);
+
+  //body
+  noStroke();
+  fill("white");
+  square(0, 0, 97);
+  fill("red");
+  rect(0, 25, 97, 47);
+  stroke("black");
+  strokeWeight(3);
+  //outline
+  noFill();
+  square(0, 0, 100, 5);
+
+  //windshield
+  fill("skyblue");
+  rect(0, -24, 100, 30, 3);
+
+  //windshield glare
+  noStroke();
+  fill("white");
+  rect(-30, -32.5, 20, 2, 1);
+  rect(-35, -27.5, 20, 2, 1);
+
+  //grill
+  stroke("black");
+  strokeWeight(3);
+  fill("grey");
+  rect(0, 25, 30, 30, 3);
+  rect(0, 30, 30, 5, 3);
+  rect(0, 25, 30, 5, 3);
+  rect(0, 20, 30, 5, 3);
+
+  //lights
+  noStroke();
+  fill("orange");
+  rect(-32.5, 20, 17, 7);
+  rect(32.5, 20, 17, 7);
+  fill("red");
+  rect(-28, 20, 8.5, 7);
+  rect(28, 20, 8.5, 7);
+  fill("yellow");
+  rect(-32.5, 35, 30, 20, 3);
+  rect(32.5, 35, 30, 20, 3);
+
+  //light outlines
+  stroke("black");
+  strokeWeight(3);
+  noFill();
+  rect(-32.5, 20, 20, 10, 1);
+  rect(32.5, 20, 20, 10, 1);
+  rect(-32.5, 35, 20, 10, 1);
+  rect(32.5, 35, 20, 10, 1);
+  rect(-32.5, 35, 0, 10);
+  rect(32.5, 35, 0, 10);
+
+  //windshield wipers
+  noStroke();
+  fill("grey");
+  rect(-25, -11, 30, 2);
+  rect(25, -11, 30, 2);
+  rect(-30, -9, 2, 2);
+  rect(20, -9, 2, 2);
+
+  //emergency lights
+  stroke("black");
+  strokeWeight(3);
+  fill("blue");
+  rect(-30, -55, 10, 10, 3);
+  fill("red");
+  rect(-20, -55, 10, 10, 3);
+  fill("yellow");
+  rect(30, -55, 10, 10, 3);
+
+  //endpop
+  pop();
+}
